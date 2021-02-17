@@ -7,23 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		638A3CAC25DB1122008931D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3CAB25DB1122008931D1 /* AppDelegate.swift */; };
 		638A3CAE25DB1122008931D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3CAD25DB1122008931D1 /* SceneDelegate.swift */; };
-		638A3CB025DB1122008931D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3CAF25DB1122008931D1 /* ViewController.swift */; };
-		638A3CB325DB1122008931D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 638A3CB125DB1122008931D1 /* Main.storyboard */; };
 		638A3CB525DB1123008931D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 638A3CB425DB1123008931D1 /* Assets.xcassets */; };
 		638A3CB825DB1123008931D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 638A3CB625DB1123008931D1 /* LaunchScreen.storyboard */; };
+		638A3CC325DB1134008931D1 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A3CC225DB1134008931D1 /* HealthKit.framework */; };
+		638A3CCD25DB134E008931D1 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3CCC25DB134E008931D1 /* MainTabViewController.swift */; };
+		638A3CD125DB13D8008931D1 /* WeeklyQuantitySampleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3CD025DB13D8008931D1 /* WeeklyQuantitySampleTableViewController.swift */; };
+		638A3CD425DB13E7008931D1 /* MobilityChartDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3CD325DB13E7008931D1 /* MobilityChartDataViewController.swift */; };
+		638A3CD825DB15C8008931D1 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3CD725DB15C8008931D1 /* UIViewController+Extension.swift */; };
+		638A3CEA25DB17B6008931D1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3CE925DB17B6008931D1 /* WelcomeViewController.swift */; };
+		638A3CEE25DB180F008931D1 /* HealthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3CED25DB180F008931D1 /* HealthData.swift */; };
+		638A3CF925DB1CC5008931D1 /* WeeklyReportTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3CF825DB1CC5008931D1 /* WeeklyReportTableViewController.swift */; };
+		638A3CFE25DB1E9E008931D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3CFD25DB1E9E008931D1 /* AppDelegate.swift */; };
+		638A3D0C25DC44DC008931D1 /* HealthDataTypeValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3D0B25DC44DC008931D1 /* HealthDataTypeValue.swift */; };
+		638A3D1125DC454A008931D1 /* DataTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3D1025DC454A008931D1 /* DataTypeTableViewCell.swift */; };
+		638A3D1525DC45E6008931D1 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3D1425DC45E6008931D1 /* UITableView+Extension.swift */; };
+		638A3D1825DC4F92008931D1 /* HealthKitSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3D1725DC4F92008931D1 /* HealthKitSupport.swift */; };
+		638A3D2525DC73A7008931D1 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 638A3D2425DC73A7008931D1 /* Localizable.stringsdict */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		638A3CA825DB1122008931D1 /* HealthKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		638A3CAB25DB1122008931D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		638A3CAD25DB1122008931D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		638A3CAF25DB1122008931D1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		638A3CB225DB1122008931D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		638A3CB425DB1123008931D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		638A3CB725DB1123008931D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		638A3CB925DB1123008931D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		638A3CC025DB1133008931D1 /* HealthKitTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HealthKitTest.entitlements; sourceTree = "<group>"; };
+		638A3CC225DB1134008931D1 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		638A3CCC25DB134E008931D1 /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
+		638A3CD025DB13D8008931D1 /* WeeklyQuantitySampleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyQuantitySampleTableViewController.swift; sourceTree = "<group>"; };
+		638A3CD325DB13E7008931D1 /* MobilityChartDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilityChartDataViewController.swift; sourceTree = "<group>"; };
+		638A3CD725DB15C8008931D1 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		638A3CE925DB17B6008931D1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		638A3CED25DB180F008931D1 /* HealthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthData.swift; sourceTree = "<group>"; };
+		638A3CF825DB1CC5008931D1 /* WeeklyReportTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyReportTableViewController.swift; sourceTree = "<group>"; };
+		638A3CFD25DB1E9E008931D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		638A3D0B25DC44DC008931D1 /* HealthDataTypeValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataTypeValue.swift; sourceTree = "<group>"; };
+		638A3D1025DC454A008931D1 /* DataTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypeTableViewCell.swift; sourceTree = "<group>"; };
+		638A3D1425DC45E6008931D1 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		638A3D1725DC4F92008931D1 /* HealthKitSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSupport.swift; sourceTree = "<group>"; };
+		638A3D2425DC73A7008931D1 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				638A3CC325DB1134008931D1 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +66,7 @@
 			children = (
 				638A3CAA25DB1122008931D1 /* HealthKitTest */,
 				638A3CA925DB1122008931D1 /* Products */,
+				638A3CC125DB1134008931D1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +81,98 @@
 		638A3CAA25DB1122008931D1 /* HealthKitTest */ = {
 			isa = PBXGroup;
 			children = (
-				638A3CAB25DB1122008931D1 /* AppDelegate.swift */,
-				638A3CAD25DB1122008931D1 /* SceneDelegate.swift */,
-				638A3CAF25DB1122008931D1 /* ViewController.swift */,
-				638A3CB125DB1122008931D1 /* Main.storyboard */,
-				638A3CB425DB1123008931D1 /* Assets.xcassets */,
-				638A3CB625DB1123008931D1 /* LaunchScreen.storyboard */,
-				638A3CB925DB1123008931D1 /* Info.plist */,
+				638A3D0A25DC44CA008931D1 /* Models */,
+				638A3D0F25DC4528008931D1 /* Views */,
+				638A3CC925DB1283008931D1 /* View Controllers */,
+				638A3CEC25DB17FB008931D1 /* Data */,
+				638A3CD625DB15AA008931D1 /* Utilities */,
+				638A3CC625DB1181008931D1 /* Storyboards */,
+				638A3CC425DB1169008931D1 /* Resources */,
 			);
 			path = HealthKitTest;
+			sourceTree = "<group>";
+		};
+		638A3CC125DB1134008931D1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				638A3CC225DB1134008931D1 /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		638A3CC425DB1169008931D1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				638A3CB425DB1123008931D1 /* Assets.xcassets */,
+				638A3CFD25DB1E9E008931D1 /* AppDelegate.swift */,
+				638A3CAD25DB1122008931D1 /* SceneDelegate.swift */,
+				638A3CB925DB1123008931D1 /* Info.plist */,
+				638A3D2425DC73A7008931D1 /* Localizable.stringsdict */,
+				638A3CC025DB1133008931D1 /* HealthKitTest.entitlements */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		638A3CC625DB1181008931D1 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				638A3CB625DB1123008931D1 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		638A3CC925DB1283008931D1 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				638A3CCC25DB134E008931D1 /* MainTabViewController.swift */,
+				638A3D2C25DC765C008931D1 /* Tabs */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		638A3CD625DB15AA008931D1 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				638A3CD725DB15C8008931D1 /* UIViewController+Extension.swift */,
+				638A3D1425DC45E6008931D1 /* UITableView+Extension.swift */,
+				638A3D1725DC4F92008931D1 /* HealthKitSupport.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		638A3CEC25DB17FB008931D1 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				638A3CED25DB180F008931D1 /* HealthData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		638A3D0A25DC44CA008931D1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				638A3D0B25DC44DC008931D1 /* HealthDataTypeValue.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		638A3D0F25DC4528008931D1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				638A3D1025DC454A008931D1 /* DataTypeTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		638A3D2C25DC765C008931D1 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				638A3CE925DB17B6008931D1 /* WelcomeViewController.swift */,
+				638A3CD025DB13D8008931D1 /* WeeklyQuantitySampleTableViewController.swift */,
+				638A3CD325DB13E7008931D1 /* MobilityChartDataViewController.swift */,
+				638A3CF825DB1CC5008931D1 /* WeeklyReportTableViewController.swift */,
+			);
+			path = Tabs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,8 +233,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				638A3CB825DB1123008931D1 /* LaunchScreen.storyboard in Resources */,
+				638A3D2525DC73A7008931D1 /* Localizable.stringsdict in Resources */,
 				638A3CB525DB1123008931D1 /* Assets.xcassets in Resources */,
-				638A3CB325DB1122008931D1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,8 +245,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				638A3CB025DB1122008931D1 /* ViewController.swift in Sources */,
-				638A3CAC25DB1122008931D1 /* AppDelegate.swift in Sources */,
+				638A3CD125DB13D8008931D1 /* WeeklyQuantitySampleTableViewController.swift in Sources */,
+				638A3D0C25DC44DC008931D1 /* HealthDataTypeValue.swift in Sources */,
+				638A3D1125DC454A008931D1 /* DataTypeTableViewCell.swift in Sources */,
+				638A3D1525DC45E6008931D1 /* UITableView+Extension.swift in Sources */,
+				638A3CFE25DB1E9E008931D1 /* AppDelegate.swift in Sources */,
+				638A3CCD25DB134E008931D1 /* MainTabViewController.swift in Sources */,
+				638A3CD825DB15C8008931D1 /* UIViewController+Extension.swift in Sources */,
+				638A3CD425DB13E7008931D1 /* MobilityChartDataViewController.swift in Sources */,
+				638A3D1825DC4F92008931D1 /* HealthKitSupport.swift in Sources */,
+				638A3CEE25DB180F008931D1 /* HealthData.swift in Sources */,
+				638A3CEA25DB17B6008931D1 /* WelcomeViewController.swift in Sources */,
+				638A3CF925DB1CC5008931D1 /* WeeklyReportTableViewController.swift in Sources */,
 				638A3CAE25DB1122008931D1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,14 +264,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		638A3CB125DB1122008931D1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				638A3CB225DB1122008931D1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		638A3CB625DB1123008931D1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -286,9 +396,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HealthKitTest/Resources/HealthKitTest.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3BQB6FYF6S;
-				INFOPLIST_FILE = HealthKitTest/Info.plist;
+				INFOPLIST_FILE = HealthKitTest/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -305,9 +416,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HealthKitTest/Resources/HealthKitTest.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3BQB6FYF6S;
-				INFOPLIST_FILE = HealthKitTest/Info.plist;
+				INFOPLIST_FILE = HealthKitTest/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
