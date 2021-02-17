@@ -29,15 +29,8 @@ class WeeklyQuantitySampleTableViewController: UITableViewController {
     let healthStore = HealthData.healthStore
     
     var dataTypeIdentifier: String
-    var dataValues: [HealthDataTypeValue] = []
     
-    var quantityTypeIdentifier: HKQuantityTypeIdentifier {
-        HKQuantityTypeIdentifier(rawValue: dataTypeIdentifier)
-    }
-    
-    var quantityType: HKQuantityType {
-        HKQuantityType.quantityType(forIdentifier: quantityTypeIdentifier)!
-    }
+    var dataValues: [HealthDataTypeValue] = [] // tableView data source
     
     var query: HKStatisticsCollectionQuery?
     
@@ -48,6 +41,16 @@ class WeeklyQuantitySampleTableViewController: UITableViewController {
     }()
     
     public var showGroupedTableViewTitle: Bool = false
+    
+    // Computed Properties
+    
+    var quantityTypeIdentifier: HKQuantityTypeIdentifier {
+        HKQuantityTypeIdentifier(rawValue: dataTypeIdentifier)
+    }
+    
+    var quantityType: HKQuantityType {
+        HKQuantityType.quantityType(forIdentifier: quantityTypeIdentifier)!
+    }
     
     // MARK: Initializers
 
@@ -74,27 +77,13 @@ class WeeklyQuantitySampleTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         updateNavigationItem()
-        
-        guard query == nil else { return }
-        
-        // Request authorization.
-        let dataTypeValues = Set([quantityType])
-        
-        print("Requesting HealthKit authorization...")
-        
-        self.healthStore.requestAuthorization(toShare: dataTypeValues, read: dataTypeValues) { (success, error) in
-            if success {
-                self.calculateDailyQuantitySamplesForPastWeek()
-            }
-        }
+        configureHKQuery()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if let query = query {
-            self.healthStore.stop(query)
-        }
+        stopHKQuery()
     }
     
     // MARK: - Lifecycle Helpers
@@ -117,7 +106,40 @@ class WeeklyQuantitySampleTableViewController: UITableViewController {
         navigationItem.title = getDataTypeName(for: dataTypeIdentifier)
     }
     
-    func calculateDailyQuantitySamplesForPastWeek() {
+    func configureHKQuery() {
+        print("Setting up HealthKit query...")
+        
+        guard query == nil else { print("Warning: query already exists... cancelling query setup"); return }
+        
+        let dataTypeValues = Set([quantityType])
+        
+        print("Requesting HealthKit authorization...")
+        healthStore.requestAuthorization(toShare: dataTypeValues, read: dataTypeValues) { (success, error) in
+            if let error = error {
+                NSLog("Error requesting authorization to HealthStore: \(error.localizedDescription)")
+            }
+            
+            guard success else {
+                NSLog("Unable to query daily steps data: HealthStore authorization failed.")
+                return
+            }
+            
+            print("HealthKit authorization successful!")
+            self.queryDailyQuantitySamplesForPastWeek()
+        }
+    }
+    
+    func stopHKQuery() {
+        if let query = query {
+            print("Stopping HealthKit query...")
+            healthStore.stop(query)
+        }
+    }
+    
+    // MARK: - Read Steps Data
+    
+    /// Create and execute an HKQuery for daily steps totals over the last seven days
+    func queryDailyQuantitySamplesForPastWeek() {
         performQuery {
             DispatchQueue.main.async { [weak self] in
                 self?.reloadData()
@@ -132,12 +154,6 @@ class WeeklyQuantitySampleTableViewController: UITableViewController {
         self.dataValues.sort { $0.startDate > $1.startDate }
         self.tableView.reloadData()
         self.tableView.refreshControl?.endRefreshing()
-    }
-    
-    private func reloadDataOnMainThread() {
-        DispatchQueue.main.async { [weak self] in
-            self?.reloadData()
-        }
     }
     
     private func setEmptyDataView() {
@@ -229,12 +245,10 @@ extension WeeklyQuantitySampleTableViewController {
                     self?.updateNavigationItem()
                 }
                 
-                if let healthQueryDataSourceProvider = self {
-                    healthQueryDataSourceProvider.performQuery() { [weak self] in
-                        self?.reloadDataOnMainThread()
+                self?.performQuery() { [weak self] in
+                    DispatchQueue.main.async {
+                        self?.reloadData()
                     }
-                } else {
-                    self?.reloadDataOnMainThread()
                 }
             }
         }
@@ -246,26 +260,30 @@ extension WeeklyQuantitySampleTableViewController {
 extension WeeklyQuantitySampleTableViewController: HealthQueryDataSource {
     
     func performQuery(completion: @escaping () -> Void) {
-        let predicate = createLastWeekPredicate()
-        let anchorDate = createAnchorDate()
-        let dailyInterval = DateComponents(day: 1)
+        
+        // Construct an HKStatisticsCollectionQuery; only calculate daily steps data from the past week
+//        let quantityType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!
+        let dateSevenDaysAgo = calendar.date(byAdding: DateComponents(day: -7), to: Date())!
+        let lastSevenDaysPredicate = HKQuery.predicateForSamples(withStart: dateSevenDaysAgo, end: nil, options: .strictStartDate)
+//        let statisticsOptions = HKStatisticsOptions.cumulativeSum
         let statisticsOptions = getStatisticsOptions(for: dataTypeIdentifier)
+        let anchorDate = calendar.startOfDay(for: Date())
+        let dailyInterval = DateComponents(day: 1)
         
         let query = HKStatisticsCollectionQuery(quantityType: quantityType,
-                                                quantitySamplePredicate: predicate,
+                                                quantitySamplePredicate: lastSevenDaysPredicate,
                                                 options: statisticsOptions,
                                                 anchorDate: anchorDate,
                                                 intervalComponents: dailyInterval)
         
-        // The handler block for the HKStatisticsCollection object.
-        let updateInterfaceWithStatistics: (HKStatisticsCollection) -> Void = { statisticsCollection in
+        // The handler block for the HKStatisticsCollection results: updates the UI with the results
+        let updateUIWithStatistics: (HKStatisticsCollection) -> Void = { statisticsCollection in
             self.dataValues = []
             
-            let now = Date()
-            let startDate = getLastWeekStartDate()
-            let endDate = now
+            let endDate = Date()
+            let startDate = self.calendar.date(byAdding: .day, value: -6, to: endDate)!
             
-            statisticsCollection.enumerateStatistics(from: startDate, to: endDate) { [weak self] (statistics, stop) in
+            statisticsCollection.enumerateStatistics(from: startDate, to: endDate) { [weak self] statistics, stop in
                 var dataValue = HealthDataTypeValue(startDate: statistics.startDate, endDate: statistics.endDate, value: 0)
                 
                 if let quantity = getStatisticsQuantity(for: statistics, with: statisticsOptions),
@@ -280,20 +298,22 @@ extension WeeklyQuantitySampleTableViewController: HealthQueryDataSource {
             completion()
         }
         
+        // Handle initial query results
         query.initialResultsHandler = { query, statisticsCollection, error in
             if let statisticsCollection = statisticsCollection {
-                updateInterfaceWithStatistics(statisticsCollection)
+                updateUIWithStatistics(statisticsCollection)
             }
         }
         
-        query.statisticsUpdateHandler = { [weak self] query, statistics, statisticsCollection, error in
-            // Ensure we only update the interface if the visible data type is updated
-            if let statisticsCollection = statisticsCollection, query.objectType?.identifier == self?.dataTypeIdentifier {
-                updateInterfaceWithStatistics(statisticsCollection)
+        // Handle ongoing query results updates
+        query.statisticsUpdateHandler = { query, statistics, statisticsCollection, error in
+            if let statisticsCollection = statisticsCollection {
+                updateUIWithStatistics(statisticsCollection)
             }
         }
         
-        self.healthStore.execute(query)
+        // Execute query on the HealthStore
+        healthStore.execute(query)
         self.query = query
     }
 }
@@ -352,7 +372,9 @@ extension WeeklyQuantitySampleTableViewController: HealthDataTableViewController
             
             if success {
                 print("Successfully saved a new sample!", sample)
-                self?.reloadDataOnMainThread()
+                DispatchQueue.main.async { [weak self] in
+                    self?.reloadData()
+                }
             } else {
                 print("Error: Could not save new sample.", sample)
             }
