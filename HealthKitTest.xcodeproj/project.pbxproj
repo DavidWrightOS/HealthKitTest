@@ -24,6 +24,7 @@
 		638A3D1525DC45E6008931D1 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3D1425DC45E6008931D1 /* UITableView+Extension.swift */; };
 		638A3D1825DC4F92008931D1 /* HealthKitSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3D1725DC4F92008931D1 /* HealthKitSupport.swift */; };
 		638A3D2525DC73A7008931D1 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 638A3D2425DC73A7008931D1 /* Localizable.stringsdict */; };
+		638A3D3125DDDB45008931D1 /* WeeklyWaterIntakeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3D3025DDDB45008931D1 /* WeeklyWaterIntakeTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		638A3D1425DC45E6008931D1 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		638A3D1725DC4F92008931D1 /* HealthKitSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSupport.swift; sourceTree = "<group>"; };
 		638A3D2425DC73A7008931D1 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
+		638A3D3025DDDB45008931D1 /* WeeklyWaterIntakeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWaterIntakeTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 				638A3CD025DB13D8008931D1 /* WeeklyQuantitySampleTableViewController.swift */,
 				638A3CD325DB13E7008931D1 /* MobilityChartDataViewController.swift */,
 				638A3CF825DB1CC5008931D1 /* WeeklyReportTableViewController.swift */,
+				638A3D3025DDDB45008931D1 /* WeeklyWaterIntakeTableViewController.swift */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				638A3D3125DDDB45008931D1 /* WeeklyWaterIntakeTableViewController.swift in Sources */,
 				638A3CD125DB13D8008931D1 /* WeeklyQuantitySampleTableViewController.swift in Sources */,
 				638A3D0C25DC44DC008931D1 /* HealthDataTypeValue.swift in Sources */,
 				638A3D1125DC454A008931D1 /* DataTypeTableViewCell.swift in Sources */,
