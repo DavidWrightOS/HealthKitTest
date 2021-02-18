@@ -26,6 +26,7 @@
 		638A3D2525DC73A7008931D1 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 638A3D2425DC73A7008931D1 /* Localizable.stringsdict */; };
 		638A3D3125DDDB45008931D1 /* WeeklyWaterIntakeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3D3025DDDB45008931D1 /* WeeklyWaterIntakeTableViewController.swift */; };
 		638BB35D25DE688B00D778FE /* CareKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = 638BB35C25DE688B00D778FE /* CareKitUI */; };
+		638BB36025DE699000D778FE /* CareKitSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BB35F25DE699000D778FE /* CareKitSupport.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		638A3D1725DC4F92008931D1 /* HealthKitSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSupport.swift; sourceTree = "<group>"; };
 		638A3D2425DC73A7008931D1 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		638A3D3025DDDB45008931D1 /* WeeklyWaterIntakeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWaterIntakeTableViewController.swift; sourceTree = "<group>"; };
+		638BB35F25DE699000D778FE /* CareKitSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareKitSupport.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 				638A3CD725DB15C8008931D1 /* UIViewController+Extension.swift */,
 				638A3D1425DC45E6008931D1 /* UITableView+Extension.swift */,
 				638A3D1725DC4F92008931D1 /* HealthKitSupport.swift */,
+				638BB35F25DE699000D778FE /* CareKitSupport.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				638A3CEA25DB17B6008931D1 /* WelcomeViewController.swift in Sources */,
 				638A3CF925DB1CC5008931D1 /* WeeklyReportTableViewController.swift in Sources */,
 				638A3CAE25DB1122008931D1 /* SceneDelegate.swift in Sources */,
+				638BB36025DE699000D778FE /* CareKitSupport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
