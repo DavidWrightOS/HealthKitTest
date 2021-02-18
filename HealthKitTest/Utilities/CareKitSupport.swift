@@ -17,19 +17,11 @@ func createChartWeeklyDateRangeLabel(lastDate: Date = Date()) -> String {
     let endOfWeekDate = lastDate
     let startOfWeekDate = getLastWeekStartDate(from: endOfWeekDate)
     
-    let monthDayDateFormatter = DateFormatter()
-    monthDayDateFormatter.dateFormat = "MMM d"
-    let monthDayYearDateFormatter = DateFormatter()
-    monthDayYearDateFormatter.dateFormat = "MMM d, yyyy"
-    
     var startDateString = monthDayDateFormatter.string(from: startOfWeekDate)
     var endDateString = monthDayYearDateFormatter.string(from: endOfWeekDate)
     
     // If the start and end dates are in the same month.
     if calendar.isDate(startOfWeekDate, equalTo: endOfWeekDate, toGranularity: .month) {
-        let dayYearDateFormatter = DateFormatter()
-        
-        dayYearDateFormatter.dateFormat = "d, yyyy"
         endDateString = dayYearDateFormatter.string(from: endOfWeekDate)
     }
     
@@ -39,14 +31,6 @@ func createChartWeeklyDateRangeLabel(lastDate: Date = Date()) -> String {
     }
     
     return String(format: "%@–%@", startDateString, endDateString)
-}
-
-private func createMonthDayDateFormatter() -> DateFormatter {
-    let dateFormatter = DateFormatter()
-    
-    dateFormatter.dateFormat = "MM/dd"
-    
-    return dateFormatter
 }
 
 func createChartDateLastUpdatedLabel(_ dateLastUpdated: Date) -> String {
@@ -62,7 +46,7 @@ func createChartDateLastUpdatedLabel(_ dateLastUpdated: Date) -> String {
 /// Defaults to showing the current day as the last axis label of the chart and going back one week.
 func createHorizontalAxisMarkers(lastDate: Date = Date(), useWeekdays: Bool = true) -> [String] {
     let calendar: Calendar = .current
-    let weekdayTitles = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    let weekdayTitles = calendar.shortWeekdaySymbols // ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
     var titles: [String] = []
     
@@ -76,13 +60,11 @@ func createHorizontalAxisMarkers(lastDate: Date = Date(), useWeekdays: Bool = tr
         let numberOfTitles = weekdayTitles.count
         let endDate = lastDate
         let startDate = calendar.date(byAdding: DateComponents(day: -(numberOfTitles - 1)), to: endDate)!
-        
-        let dateFormatter = createMonthDayDateFormatter()
 
         var date = startDate
         
         while date <= endDate {
-            titles.append(dateFormatter.string(from: date))
+            titles.append(horizontalAxisMonthDayDateFormatter.string(from: date))
             date = calendar.date(byAdding: .day, value: 1, to: date)!
         }
         
@@ -91,7 +73,32 @@ func createHorizontalAxisMarkers(lastDate: Date = Date(), useWeekdays: Bool = tr
 }
 
 func createHorizontalAxisMarkers(for dates: [Date]) -> [String] {
-    let dateFormatter = createMonthDayDateFormatter()
-    
-    return dates.map { dateFormatter.string(from: $0) }
+    dates.map { horizontalAxisMonthDayDateFormatter.string(from: $0) }
 }
+
+
+// MARK: - Date Formatters
+
+private let horizontalAxisMonthDayDateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "MM/dd"
+    return dateFormatter
+}()
+
+private let monthDayDateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "MMM d"
+    return dateFormatter
+}()
+
+private let monthDayYearDateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "MMM d, yyyy"
+    return dateFormatter
+}()
+
+private let dayYearDateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "d, yyyy"
+    return dateFormatter
+}()
