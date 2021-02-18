@@ -28,7 +28,7 @@ class ChartView: UIView {
     var unitDisplayName: String?
     var horizontalAxisMarkers: [String]?
     
-    var dataSource: ChartViewDataSource?
+    weak var dataSource: ChartViewDataSource?
     
     private var chartView: OCKCartesianChartView = {
         let chartView = OCKCartesianChartView(type: .bar)
