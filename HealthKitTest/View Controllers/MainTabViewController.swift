@@ -30,8 +30,9 @@ class MainTabViewController: UITabBarController {
             createWelcomeViewController(),
             createWeeklyQuantitySampleTableViewController(),
             createChartViewController(),
-            createWeeklyReportViewController(),
+//            createWeeklyReportViewController(),
             createWeeklyWaterIntakeTableViewController(),
+            createWaterIntakeChartViewController(),
         ]
         
         self.viewControllers = viewControllers.map {
@@ -85,6 +86,15 @@ class MainTabViewController: UITabBarController {
         viewController.tabBarItem = UITabBarItem(title: "Water Data",
                                                  image: UIImage(systemName: "drop"),
                                                  selectedImage: UIImage(systemName: "drop.fill"))
+        return viewController
+    }
+    
+    private func createWaterIntakeChartViewController() -> UIViewController {
+        let viewController = WaterIntakeChartViewController()
+        
+        viewController.tabBarItem = UITabBarItem(title: "Charts",
+                                                 image: UIImage(systemName: "chart.bar"),
+                                                 selectedImage: UIImage(systemName: "chart.bar.fill"))
         return viewController
     }
     
