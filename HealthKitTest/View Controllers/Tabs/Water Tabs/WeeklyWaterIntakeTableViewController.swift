@@ -48,15 +48,17 @@ class WeeklyWaterIntakeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpNavigationController()
-        setUpViewController()
-        setUpTableView()
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Data", style: .plain, target: self, action: #selector(didTapRightBarButtonItem))
+        title = tabBarItem.title
+        
+        tableView.register(DataTypeTableViewCell.self, forCellReuseIdentifier: Self.cellIdentifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        updateNavigationItem()
+        navigationItem.title = dataTypeName
         configureHKQuery()
     }
     
@@ -66,24 +68,7 @@ class WeeklyWaterIntakeTableViewController: UITableViewController {
         stopHKQuery()
     }
     
-    // MARK: - Lifecycle Helpers
-    
-    func setUpNavigationController() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Data", style: .plain, target: self, action: #selector(didTapRightBarButtonItem))
-    }
-    
-    func setUpViewController() {
-        title = tabBarItem.title
-    }
-    
-    func setUpTableView() {
-        tableView.register(DataTypeTableViewCell.self, forCellReuseIdentifier: Self.cellIdentifier)
-    }
-    
-    func updateNavigationItem() {
-        navigationItem.title = dataTypeName
-    }
+    // MARK: - HKStatisticsCollectionQuery
     
     func configureHKQuery() {
         print("Setting up HealthKit query...")
@@ -117,7 +102,7 @@ class WeeklyWaterIntakeTableViewController: UITableViewController {
     
     // MARK: - Read Steps Data
     
-    /// Create and execute an HKQuery for daily steps totals over the last seven days
+    /// Create and execute an HKStatisticsCollectionQuery for daily step count totals over the last seven days
     func queryDailyQuantitySamplesForPastWeek() {
         performQuery {
             DispatchQueue.main.async { [weak self] in
@@ -193,7 +178,6 @@ extension WeeklyWaterIntakeTableViewController: HealthQueryDataSource {
     func performQuery(completion: @escaping () -> Void) {
         
         // Construct an HKStatisticsCollectionQuery; only calculate daily steps data from the past week
-//        let quantityType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryWater)!
         let dateSevenDaysAgo = calendar.date(byAdding: DateComponents(day: -7), to: Date())!
         let lastSevenDaysPredicate = HKQuery.predicateForSamples(withStart: dateSevenDaysAgo, end: nil, options: .strictStartDate)
         let statisticsOptions = HKStatisticsOptions.cumulativeSum
@@ -290,12 +274,6 @@ extension WeeklyWaterIntakeTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        guard showGroupedTableViewTitle, !dataValues.isEmpty else { return nil }
-//
-//        return String(format: "%@ %@", dataTypeName, "Samples")
-//    }
 }
 
 
