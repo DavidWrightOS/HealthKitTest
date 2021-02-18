@@ -30,6 +30,7 @@
 		638BB36025DE699000D778FE /* CareKitSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BB35F25DE699000D778FE /* CareKitSupport.swift */; };
 		638BB36425DE761200D778FE /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BB36325DE761200D778FE /* Network.swift */; };
 		638BB36725DE764E00D778FE /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BB36625DE764E00D778FE /* ServerResponse.swift */; };
+		638BB39D25DF0B3900D778FE /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BB39C25DF0B3900D778FE /* ChartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		638BB35F25DE699000D778FE /* CareKitSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareKitSupport.swift; sourceTree = "<group>"; };
 		638BB36325DE761200D778FE /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		638BB36625DE764E00D778FE /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
+		638BB39C25DF0B3900D778FE /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 			children = (
 				638A3D1025DC454A008931D1 /* DataTypeTableViewCell.swift */,
 				638BB35825DE5F1000D778FE /* DataTypeCollectionViewCell.swift */,
+				638BB39C25DF0B3900D778FE /* ChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				638A3D3125DDDB45008931D1 /* WeeklyWaterIntakeTableViewController.swift in Sources */,
 				638A3CD125DB13D8008931D1 /* WeeklyQuantitySampleTableViewController.swift in Sources */,
 				638A3D0C25DC44DC008931D1 /* HealthDataTypeValue.swift in Sources */,
+				638BB39D25DF0B3900D778FE /* ChartView.swift in Sources */,
 				638A3D1125DC454A008931D1 /* DataTypeTableViewCell.swift in Sources */,
 				638A3D1525DC45E6008931D1 /* UITableView+Extension.swift in Sources */,
 				638A3CFE25DB1E9E008931D1 /* AppDelegate.swift in Sources */,
