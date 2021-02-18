@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,6 +25,7 @@
 		638A3D1825DC4F92008931D1 /* HealthKitSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3D1725DC4F92008931D1 /* HealthKitSupport.swift */; };
 		638A3D2525DC73A7008931D1 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 638A3D2425DC73A7008931D1 /* Localizable.stringsdict */; };
 		638A3D3125DDDB45008931D1 /* WeeklyWaterIntakeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A3D3025DDDB45008931D1 /* WeeklyWaterIntakeTableViewController.swift */; };
+		638BB35D25DE688B00D778FE /* CareKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = 638BB35C25DE688B00D778FE /* CareKitUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				638BB35D25DE688B00D778FE /* CareKitUI in Frameworks */,
 				638A3CC325DB1134008931D1 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,6 +196,9 @@
 			dependencies = (
 			);
 			name = HealthKitTest;
+			packageProductDependencies = (
+				638BB35C25DE688B00D778FE /* CareKitUI */,
+			);
 			productName = HealthKitTest;
 			productReference = 638A3CA825DB1122008931D1 /* HealthKitTest.app */;
 			productType = "com.apple.product-type.application";
@@ -221,6 +226,9 @@
 				Base,
 			);
 			mainGroup = 638A3C9F25DB1122008931D1;
+			packageReferences = (
+				638BB35B25DE688B00D778FE /* XCRemoteSwiftPackageReference "CareKit" */,
+			);
 			productRefGroup = 638A3CA925DB1122008931D1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -457,6 +465,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		638BB35B25DE688B00D778FE /* XCRemoteSwiftPackageReference "CareKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/carekit-apple/CareKit";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		638BB35C25DE688B00D778FE /* CareKitUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 638BB35B25DE688B00D778FE /* XCRemoteSwiftPackageReference "CareKit" */;
+			productName = CareKitUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 638A3CA025DB1122008931D1 /* Project object */;
 }
