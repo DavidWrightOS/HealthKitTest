@@ -158,13 +158,9 @@ func getDataTypeName(for identifier: String) -> String? {
 
 /// Return a formatted readable value suitable for display for a health data value based on its type. Example: "10,000 steps"
 func formattedValue(_ value: Double, typeIdentifier: String) -> String? {
-    guard
-        let unit = preferredUnit(for: typeIdentifier),
-        let roundedValue = getRoundedValue(for: value, with: unit),
-        let unitSuffix = getUnitSuffix(for: unit)
-    else {
-        return nil
-    }
+    guard let unit = preferredUnit(for: typeIdentifier),
+          let roundedValue = getRoundedValue(for: value, with: unit),
+          let unitSuffix = getUnitSuffix(for: unit) else { return nil }
     
     let formattedString = String.localizedStringWithFormat("%@ %@", roundedValue, unitSuffix)
     

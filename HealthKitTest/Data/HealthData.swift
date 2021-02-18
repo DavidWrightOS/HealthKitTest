@@ -34,22 +34,6 @@ class HealthData {
     
     // MARK: - Authorization
     
-//    /// Request health data from HealthKit if needed, using the data types within `HealthData.allHealthDataTypes`
-//    class func requestHealthDataAccessIfNeeded(toShare shareDataTypeIDs: [String]? = nil, read readDataTypeIDs: [String]? = nil, completion: @escaping (_ success: Bool) -> Void) {
-//        var readDataTypes = Set(allHealthDataTypes)
-//        var shareDataTypes = Set(allHealthDataTypes)
-//
-//        if let readDataTypeIDs = readDataTypeIDs {
-//            readDataTypes = Set(readDataTypeIDs.compactMap { getSampleType(for: $0) })
-//        }
-//
-//        if let shareDataTypeIDs = shareDataTypeIDs {
-//            shareDataTypes = Set(shareDataTypeIDs.compactMap { getSampleType(for: $0) })
-//        }
-//
-//        requestHealthDataAccessIfNeeded(toShare: shareDataTypes, read: readDataTypes, completion: completion)
-//    }
-    
     /// Request health data from HealthKit if needed, using the data types within `HealthData.allHealthDataTypes`
     class func requestHealthDataAccessIfNeeded(dataTypeIdentifiers: [String]? = nil, completion: @escaping (_ success: Bool) -> Void) {
         var readDataTypes = Set(allHealthDataTypes)
@@ -126,7 +110,7 @@ class HealthData {
         healthStore.execute(query)
     }
     
-    /*// MARK: - Helper Functions
+    // MARK: - Helper Functions
     
     class func updateAnchor(_ newAnchor: HKQueryAnchor?, from query: HKAnchoredObjectQuery) {
         if let sampleType = query.objectType as? HKSampleType {
@@ -165,5 +149,4 @@ class HealthData {
             userDefaults.set(data, forKey: anchorKey(for: type))
         }
     }
-    */
 }
