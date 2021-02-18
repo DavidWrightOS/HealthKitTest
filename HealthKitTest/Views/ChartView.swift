@@ -8,6 +8,17 @@
 import UIKit
 import CareKitUI
 
+protocol ChartViewDataSource: class {
+    var chartValues: [CGFloat] { get }
+}
+
+//extension ChartViewDataSource {
+//    var values: [CGFloat] {
+//        get { values }
+//        set { [CGFloat]() }
+//    }
+//}
+
 class ChartView: UIView {
     
     // MARK: - Properties
@@ -17,9 +28,9 @@ class ChartView: UIView {
     var unitDisplayName: String?
     var horizontalAxisMarkers: [String]?
     
-    var statisticalValues: [Double] = []
+    var dataSource: ChartViewDataSource?
     
-    var chartView: OCKCartesianChartView = {
+    private var chartView: OCKCartesianChartView = {
         let chartView = OCKCartesianChartView(type: .bar)
         chartView.translatesAutoresizingMaskIntoConstraints = false
         return chartView
@@ -30,7 +41,7 @@ class ChartView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setUpView()
+        setupView()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -39,7 +50,7 @@ class ChartView: UIView {
     
     // MARK: - Setup
     
-    private func setUpView() {
+    private func setupView() {
         addSubview(chartView)
         
         let leading = chartView.leadingAnchor.constraint(equalTo: leadingAnchor)
@@ -55,57 +66,36 @@ class ChartView: UIView {
     
     // MARK: - Update UI
     
-    func updateChartView(with values: [Double]) {
-        self.statisticalValues = values
+    func updateChartView() {
+        let values = dataSource?.chartValues ?? []
         
         // Update headerView
         chartView.headerView.titleLabel.text = title
         chartView.headerView.detailLabel.text = subtitle
         
         // Update graphView
-        chartView.applyDefaultConfiguration()
-        chartView.graphView.horizontalAxisMarkers = horizontalAxisMarkers ?? Array(repeating: "", count: values.count)
+        let horizontalAxisMarkers = self.horizontalAxisMarkers ?? Array(repeating: "", count: values.count)
+        chartView.graphView.horizontalAxisMarkers = horizontalAxisMarkers
+        applyDefaultConfiguration()
         
         // Update graphView dataSeries
-        let dataPoints: [CGFloat] = statisticalValues.map { CGFloat($0) }
         let unitTitle = unitDisplayName ?? ""
-        
-        chartView.graphView.dataSeries = [
-            OCKDataSeries(values: dataPoints, title: unitTitle)
-        ]
+        let ockDataSeries = OCKDataSeries(values: values, title: unitTitle)
+        chartView.graphView.dataSeries = [ockDataSeries]
     }
-}
-
-
-// MARK: - Chart View Style
-
-extension ChartView {
+    
     /// Apply standard graph configuration to set axes and style in a default configuration.
-    func applyDefaultConfiguration() {
+    private func applyDefaultConfiguration() {
         chartView.headerView.detailLabel.textColor = .secondaryLabel
-        
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .none
-        
         chartView.graphView.numberFormatter = numberFormatter
         chartView.graphView.yMinimum = 0
     }
     
-    func applyHeaderStyle() {
-        chartView.headerView.detailLabel.textColor = .secondaryLabel
-        chartView.customStyle = ChartHeaderStyle()
-    }
+    // MARK: - Formatters
     
-    /// A styler for using the chart as a header with an `.insetGrouped` tableView.
-    struct ChartHeaderStyle: OCKStyler {
-        var appearance: OCKAppearanceStyler {
-            NoShadowAppearanceStyle()
-        }
-    }
-
-    struct NoShadowAppearanceStyle: OCKAppearanceStyler {
-        var shadowOpacity1: Float = 0
-        var shadowRadius1: CGFloat = 0
-        var shadowOffset1: CGSize = .zero
-    }
+    private let numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .none
+        return numberFormatter
+    }()
 }

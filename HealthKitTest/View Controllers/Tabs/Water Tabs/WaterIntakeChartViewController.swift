@@ -25,6 +25,7 @@ class WaterIntakeChartViewController: UIViewController {
     lazy var chartView: ChartView = {
         let chartView = ChartView()
         chartView.translatesAutoresizingMaskIntoConstraints = false
+        chartView.dataSource = self
         chartView.title = "Water Intake"
         chartView.subtitle = createChartWeeklyDateRangeLabel()
         chartView.horizontalAxisMarkers = createHorizontalAxisMarkers()
@@ -65,7 +66,8 @@ class WaterIntakeChartViewController: UIViewController {
     }
     
     func reloadData() {
-        chartView.updateChartView(with: values)
+//        chartView.updateChartView(with: values)
+        chartView.updateChartView()
     }
     
     // MARK: - Create Anchored Object Query
@@ -242,5 +244,14 @@ extension WaterIntakeChartViewController {
             
             return titles
         }
+    }
+}
+
+
+// MARK: - ChartViewDataSource
+
+extension WaterIntakeChartViewController: ChartViewDataSource {
+    var chartValues: [CGFloat] {
+        values.map { CGFloat($0) }
     }
 }
