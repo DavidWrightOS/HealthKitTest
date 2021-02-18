@@ -30,6 +30,7 @@
 		638BB36025DE699000D778FE /* CareKitSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BB35F25DE699000D778FE /* CareKitSupport.swift */; };
 		638BB36425DE761200D778FE /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BB36325DE761200D778FE /* Network.swift */; };
 		638BB36725DE764E00D778FE /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BB36625DE764E00D778FE /* ServerResponse.swift */; };
+		638BB39725DED94C00D778FE /* WaterIntakeChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BB39625DED94C00D778FE /* WaterIntakeChartViewController.swift */; };
 		638BB39D25DF0B3900D778FE /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BB39C25DF0B3900D778FE /* ChartView.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		638BB35F25DE699000D778FE /* CareKitSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareKitSupport.swift; sourceTree = "<group>"; };
 		638BB36325DE761200D778FE /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		638BB36625DE764E00D778FE /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
+		638BB39625DED94C00D778FE /* WaterIntakeChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterIntakeChartViewController.swift; sourceTree = "<group>"; };
 		638BB39C25DF0B3900D778FE /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,9 +192,18 @@
 				638A3CD025DB13D8008931D1 /* WeeklyQuantitySampleTableViewController.swift */,
 				638A3CD325DB13E7008931D1 /* MobilityChartDataViewController.swift */,
 				638A3CF825DB1CC5008931D1 /* WeeklyReportTableViewController.swift */,
-				638A3D3025DDDB45008931D1 /* WeeklyWaterIntakeTableViewController.swift */,
+				638BB39A25DEDA3E00D778FE /* Water Tabs */,
 			);
 			path = Tabs;
+			sourceTree = "<group>";
+		};
+		638BB39A25DEDA3E00D778FE /* Water Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				638A3D3025DDDB45008931D1 /* WeeklyWaterIntakeTableViewController.swift */,
+				638BB39625DED94C00D778FE /* WaterIntakeChartViewController.swift */,
+			);
+			path = "Water Tabs";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,6 +296,7 @@
 				638BB36425DE761200D778FE /* Network.swift in Sources */,
 				638A3D1825DC4F92008931D1 /* HealthKitSupport.swift in Sources */,
 				638A3CEE25DB180F008931D1 /* HealthData.swift in Sources */,
+				638BB39725DED94C00D778FE /* WaterIntakeChartViewController.swift in Sources */,
 				638BB36725DE764E00D778FE /* ServerResponse.swift in Sources */,
 				638A3CEA25DB17B6008931D1 /* WelcomeViewController.swift in Sources */,
 				638A3CF925DB1CC5008931D1 /* WeeklyReportTableViewController.swift in Sources */,
