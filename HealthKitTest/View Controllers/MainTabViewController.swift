@@ -30,9 +30,9 @@ class MainTabViewController: UITabBarController {
             createWelcomeViewController(),
             createWeeklyQuantitySampleTableViewController(),
             createChartViewController(),
-//            createWeeklyReportViewController(),
-            createWeeklyWaterIntakeTableViewController(),
-            createWaterIntakeChartViewController(),
+            createWeeklyReportViewController(),
+//            createWeeklyWaterIntakeTableViewController(),
+//            createWaterIntakeChartViewController(),
         ]
         
         self.viewControllers = viewControllers.map {
