@@ -1,15 +1,15 @@
 //
-//  UITableView+Extension.swift
+//  UIView+Extension.swift
 //  HealthKitTest
 //
-//  Created by David Wright on 2/16/21.
+//  Created by David Wright on 2/19/21.
 //
 
 import UIKit
 
-fileprivate let splashScreenIdentifier = "TableViewSplashScreenIdentifier"
+fileprivate let splashScreenIdentifier = "UIViewSplashScreenIdentifier"
 
-extension UITableView {
+extension UIView {
     
     func addSplashScreen(title: String? = nil, subtitle: String? = nil, image: UIImage? = nil) {
         
@@ -39,7 +39,7 @@ extension UITableView {
             imageView.contentMode = .scaleAspectFit
             imageView.translatesAutoresizingMaskIntoConstraints = false
             
-            let imageSize: CGFloat = 150
+            let imageSize: CGFloat = 100
             
             imageView.widthAnchor.constraint(equalToConstant: imageSize).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageSize).isActive = true
