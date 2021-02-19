@@ -32,6 +32,7 @@
 		638BB39725DED94C00D778FE /* WaterIntakeChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BB39625DED94C00D778FE /* WaterIntakeChartViewController.swift */; };
 		638BB39D25DF0B3900D778FE /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BB39C25DF0B3900D778FE /* ChartView.swift */; };
 		638BB3A025E07D4000D778FE /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BB39F25E07D4000D778FE /* UIView+Extension.swift */; };
+		638BB3A525E086B300D778FE /* MockServerResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 638BB3A425E086B300D778FE /* MockServerResponse.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		638BB39625DED94C00D778FE /* WaterIntakeChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterIntakeChartViewController.swift; sourceTree = "<group>"; };
 		638BB39C25DF0B3900D778FE /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		638BB39F25E07D4000D778FE /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		638BB3A425E086B300D778FE /* MockServerResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockServerResponse.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 			children = (
 				638A3CED25DB180F008931D1 /* HealthData.swift */,
 				638BB36325DE761200D778FE /* Network.swift */,
+				638BB3A425E086B300D778FE /* MockServerResponse.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				638A3CB825DB1123008931D1 /* LaunchScreen.storyboard in Resources */,
 				638A3D2525DC73A7008931D1 /* Localizable.stringsdict in Resources */,
 				638A3CB525DB1123008931D1 /* Assets.xcassets in Resources */,
+				638BB3A525E086B300D778FE /* MockServerResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
