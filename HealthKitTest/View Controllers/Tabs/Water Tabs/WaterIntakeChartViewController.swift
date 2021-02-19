@@ -26,10 +26,7 @@ class WaterIntakeChartViewController: UIViewController {
         let chartView = ChartView()
         chartView.translatesAutoresizingMaskIntoConstraints = false
         chartView.dataSource = self
-        chartView.title = "Water Intake"
-        chartView.subtitle = createChartWeeklyDateRangeLabel()
-        chartView.horizontalAxisMarkers = createHorizontalAxisMarkers()
-        chartView.unitDisplayName = "fl oz (US)"
+        chartView.delegate = self
         return chartView
     }()
     
@@ -190,7 +187,38 @@ extension WaterIntakeChartViewController {
 }
 
 
-// MARK: - Setup Chart UI
+// MARK: - ChartViewDataSource
+
+extension WaterIntakeChartViewController: ChartViewDataSource {
+    var chartValues: [CGFloat] {
+        values.map { CGFloat($0) }
+    }
+}
+
+
+// MARK: - ChartViewDelegate
+
+extension WaterIntakeChartViewController: ChartViewDelegate {
+    
+    var chartTitle: String? {
+        "Water Intake"
+    }
+    
+    var chartSubtitle: String? {
+        self.createChartWeeklyDateRangeLabel()
+    }
+    
+    var chartUnitTitle: String? {
+        "fl oz (US)"
+    }
+    
+    var chartHorizontalAxisMarkers: [String]? {
+        self.createHorizontalAxisMarkers()
+    }
+}
+
+
+// MARK: - ChartView Helpers
 
 extension WaterIntakeChartViewController {
     
@@ -244,14 +272,5 @@ extension WaterIntakeChartViewController {
             
             return titles
         }
-    }
-}
-
-
-// MARK: - ChartViewDataSource
-
-extension WaterIntakeChartViewController: ChartViewDataSource {
-    var chartValues: [CGFloat] {
-        values.map { CGFloat($0) }
     }
 }

@@ -12,23 +12,31 @@ protocol ChartViewDataSource: class {
     var chartValues: [CGFloat] { get }
 }
 
-//extension ChartViewDataSource {
-//    var values: [CGFloat] {
-//        get { values }
-//        set { [CGFloat]() }
-//    }
-//}
+protocol ChartViewDelegate: class {
+    var chartTitle: String? { get }
+    var chartSubtitle: String? { get }
+    var chartUnitTitle: String? { get }
+    var chartHorizontalAxisMarkers: [String]? { get }
+}
+
+extension ChartViewDelegate {
+    var chartTitle: String? { nil }
+    var chartSubtitle: String? { nil }
+    var chartUnitTitle: String? { nil }
+    var chartHorizontalAxisMarkers: [String]? { nil }
+}
 
 class ChartView: UIView {
     
     // MARK: - Properties
     
-    var title: String?
-    var subtitle: String?
-    var unitDisplayName: String?
-    var horizontalAxisMarkers: [String]?
-    
     weak var dataSource: ChartViewDataSource?
+    weak var delegate: ChartViewDelegate?
+    
+    private var title: String? { delegate?.chartTitle }
+    private var subtitle: String? { delegate?.chartSubtitle }
+    private var unitDisplayName: String? { delegate?.chartUnitTitle }
+    private var horizontalAxisMarkers: [String]? { delegate?.chartHorizontalAxisMarkers }
     
     private var chartView: OCKCartesianChartView = {
         let chartView = OCKCartesianChartView(type: .bar)
@@ -70,20 +78,34 @@ class ChartView: UIView {
         let values = dataSource?.chartValues ?? []
         
         // Update headerView
-        chartView.headerView.titleLabel.text = title
-        chartView.headerView.detailLabel.text = subtitle
+        chartView.headerView.titleLabel.text = delegate?.chartTitle
+        chartView.headerView.detailLabel.text = delegate?.chartSubtitle
         
         // Update graphView
-        let horizontalAxisMarkers = self.horizontalAxisMarkers ?? Array(repeating: "", count: values.count)
+        let horizontalAxisMarkers = delegate?.chartHorizontalAxisMarkers ?? Array(repeating: "", count: values.count)
         chartView.graphView.horizontalAxisMarkers = horizontalAxisMarkers
+        chartView.tintColor = tintColor
         applyDefaultConfiguration()
         
         // Update graphView dataSeries
-        let unitTitle = unitDisplayName ?? ""
+        let unitTitle = delegate?.chartUnitTitle ?? ""
         let ockDataSeries = OCKDataSeries(values: values, title: unitTitle)
         chartView.graphView.dataSeries = [ockDataSeries]
     }
     
+    // MARK: - Formatters
+    
+    private let numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .none
+        return numberFormatter
+    }()
+}
+
+
+// MARK: - Chart View Style
+
+extension ChartView {
     /// Apply standard graph configuration to set axes and style in a default configuration.
     private func applyDefaultConfiguration() {
         chartView.headerView.detailLabel.textColor = .secondaryLabel
@@ -91,7 +113,6 @@ class ChartView: UIView {
         chartView.graphView.yMinimum = 0
     }
     
-    // MARK: - Formatters
     
     private let numberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
