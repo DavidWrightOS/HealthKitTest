@@ -63,8 +63,7 @@ class WaterIntakeChartViewController: UIViewController {
     }
     
     func reloadData() {
-//        chartView.updateChartView(with: values)
-        chartView.updateChartView()
+        chartView.reloadChart()
     }
     
     // MARK: - Create Anchored Object Query

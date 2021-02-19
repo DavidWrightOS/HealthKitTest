@@ -92,7 +92,7 @@ class MainTabViewController: UITabBarController {
     private func createWaterIntakeChartViewController() -> UIViewController {
         let viewController = WaterIntakeChartViewController()
         
-        viewController.tabBarItem = UITabBarItem(title: "Charts",
+        viewController.tabBarItem = UITabBarItem(title: "Water Chart",
                                                  image: UIImage(systemName: "chart.bar"),
                                                  selectedImage: UIImage(systemName: "chart.bar.fill"))
         return viewController

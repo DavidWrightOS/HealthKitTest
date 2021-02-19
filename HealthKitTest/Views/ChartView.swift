@@ -74,7 +74,7 @@ class ChartView: UIView {
     
     // MARK: - Update UI
     
-    func updateChartView() {
+    func reloadChart() {
         let values = dataSource?.chartValues ?? []
         
         // Update headerView
