@@ -262,10 +262,8 @@ extension WeeklyQuantitySampleTableViewController: HealthQueryDataSource {
     func performQuery(completion: @escaping () -> Void) {
         
         // Construct an HKStatisticsCollectionQuery; only calculate daily steps data from the past week
-//        let quantityType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!
         let dateSevenDaysAgo = calendar.date(byAdding: DateComponents(day: -7), to: Date())!
         let lastSevenDaysPredicate = HKQuery.predicateForSamples(withStart: dateSevenDaysAgo, end: nil, options: .strictStartDate)
-//        let statisticsOptions = HKStatisticsOptions.cumulativeSum
         let statisticsOptions = getStatisticsOptions(for: dataTypeIdentifier)
         let anchorDate = calendar.startOfDay(for: Date())
         let dailyInterval = DateComponents(day: 1)
