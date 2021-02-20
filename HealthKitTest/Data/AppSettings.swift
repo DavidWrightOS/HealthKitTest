@@ -13,20 +13,20 @@ class AppSettings {
     
     // MARK: - Public Properties
     
-    var healthIntegrationStatus: Bool {
+    var healthIntegrationIsEnabled: Bool {
         get {
-            value(for: healthIntegrationStatusKey) ?? false // defaults to `false`
+            value(for: healthIntegrationIsEnabledKey) ?? false // defaults to `false`
         }
         set {
-            guard newValue != healthIntegrationStatus else { return }
-            updateDefaults(for: healthIntegrationStatusKey, value: newValue)
+            guard newValue != healthIntegrationIsEnabled else { return }
+            updateDefaults(for: healthIntegrationIsEnabledKey, value: newValue)
         }
     }
     
     // MARK: - Private Properties
     
     private let userDefaults = UserDefaults.standard
-    private let healthIntegrationStatusKey = "healthIntegrationStatusKey"
+    private let healthIntegrationIsEnabledKey = "healthIntegrationIsEnabledKey"
 }
 
 

@@ -55,7 +55,7 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         
         configureViews()
-        appleHealthIntegrationSwitch.isOn = appSettings.healthIntegrationStatus
+        appleHealthIntegrationSwitch.isOn = appSettings.healthIntegrationIsEnabled
         
         title = tabBarItem.title
         
@@ -65,7 +65,7 @@ class WelcomeViewController: UIViewController {
     // MARK: - Selectors
     
     @objc private func appleHealthIntegrationSwitchDidChange(sender: UISwitch) {
-        appSettings.healthIntegrationStatus = sender.isOn
+        appSettings.healthIntegrationIsEnabled = sender.isOn
         
         if sender.isOn {
             requestHealthAuthorization()
@@ -98,7 +98,7 @@ class WelcomeViewController: UIViewController {
                 case .shouldRequest:
                     self.hasRequestedHealthData = false
                     status = "The application has not yet requested authorization for all of the specified data types."
-                    if self.appSettings.healthIntegrationStatus {
+                    if self.appSettings.healthIntegrationIsEnabled {
                         self.requestHealthAuthorization()
                     }
                 case .unknown:
@@ -179,7 +179,7 @@ class WelcomeViewController: UIViewController {
     private func turnOffAppleHealthIntegration() {
         DispatchQueue.main.async {
             self.appleHealthIntegrationSwitch.isOn = false
-            self.appSettings.healthIntegrationStatus = false
+            self.appSettings.healthIntegrationIsEnabled = false
         }
     }
 }
