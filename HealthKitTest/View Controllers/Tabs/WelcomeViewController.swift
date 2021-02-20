@@ -21,8 +21,7 @@ class WelcomeViewController: UIViewController {
     
     private var hasRequestedHealthData: Bool = false
     
-    private var userDefaults = UserDefaults.standard
-    private static let appleHealthIntegrationStatus = "AppleHealthIntegrationStatus"
+    private let appSettings = AppSettings.shared
     
     // MARK: - UI Components
     
@@ -56,7 +55,7 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         
         configureViews()
-        appleHealthIntegrationSwitch.isOn = getAppleHealthIntegrationStatus()
+        appleHealthIntegrationSwitch.isOn = appSettings.healthIntegrationStatus
         
         title = tabBarItem.title
         
@@ -66,7 +65,7 @@ class WelcomeViewController: UIViewController {
     // MARK: - Selectors
     
     @objc private func appleHealthIntegrationSwitchDidChange(sender: UISwitch) {
-        setAppleHealthIntegrationStatus(sender.isOn)
+        appSettings.healthIntegrationStatus = sender.isOn
         
         if sender.isOn {
             requestHealthAuthorization()
@@ -99,7 +98,7 @@ class WelcomeViewController: UIViewController {
                 case .shouldRequest:
                     self.hasRequestedHealthData = false
                     status = "The application has not yet requested authorization for all of the specified data types."
-                    if self.getAppleHealthIntegrationStatus() {
+                    if self.appSettings.healthIntegrationStatus {
                         self.requestHealthAuthorization()
                     }
                 case .unknown:
@@ -180,16 +179,8 @@ class WelcomeViewController: UIViewController {
     private func turnOffAppleHealthIntegration() {
         DispatchQueue.main.async {
             self.appleHealthIntegrationSwitch.isOn = false
-            self.setAppleHealthIntegrationStatus(false)
+            self.appSettings.healthIntegrationStatus = false
         }
-    }
-    
-    private func getAppleHealthIntegrationStatus() -> Bool {
-        userDefaults.object(forKey: Self.appleHealthIntegrationStatus) as? Bool ?? false
-    }
-    
-    private func setAppleHealthIntegrationStatus(_ status: Bool) {
-        userDefaults.set(status, forKey: Self.appleHealthIntegrationStatus)
     }
 }
 
