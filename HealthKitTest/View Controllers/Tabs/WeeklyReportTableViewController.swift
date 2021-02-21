@@ -114,11 +114,6 @@ class WeeklyReportTableViewController: UITableViewController {
         tableView.addSubview(emptyDataView)
         
         // Add EmptyDataView Constraints
-//        emptyDataView.leadingAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.leadingAnchor, constant: inset).isActive = true
-//        emptyDataView.trailingAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.trailingAnchor, constant: -inset).isActive = true
-//        emptyDataView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: itemSpacing).isActive = true
-//        emptyDataView.bottomAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: -inset).isActive = true
-        
         emptyDataView.leadingAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.leadingAnchor).isActive = true
         emptyDataView.trailingAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.trailingAnchor).isActive = true
         emptyDataView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
