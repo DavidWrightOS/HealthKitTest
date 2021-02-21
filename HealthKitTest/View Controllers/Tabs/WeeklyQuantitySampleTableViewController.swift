@@ -68,6 +68,7 @@ class WeeklyQuantitySampleTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        registerForhealthIntegrationIsEnabledChanges()
         setUpNavigationController()
         setUpViewController()
         setUpTableView()
@@ -77,7 +78,13 @@ class WeeklyQuantitySampleTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         updateNavigationItem()
-        configureHKQuery()
+        
+        if AppSettings.shared.healthIntegrationIsEnabled {
+            configureHKQuery()
+        } else {
+            print("Warning: Unable to configure query. The user has disabled Apple Health integration.")
+            reloadData()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -107,6 +114,7 @@ class WeeklyQuantitySampleTableViewController: UITableViewController {
     }
     
     func configureHKQuery() {
+        
         print("Setting up HealthKit query...")
         
         guard query == nil else { print("Warning: query already exists... cancelling query setup"); return }
@@ -403,5 +411,21 @@ extension WeeklyQuantitySampleTableViewController: HealthDataTableViewController
         }
         
         return optionalSample
+    }
+}
+
+
+// MARK: - SettingsTracking
+
+extension WeeklyQuantitySampleTableViewController: SettingsTracking {
+    func healthIntegrationIsEnabledChanged() {
+        if AppSettings.shared.healthIntegrationIsEnabled {
+            configureHKQuery()
+        } else {
+            stopHKQuery()
+            query = nil
+            dataValues.removeAll()
+            reloadData()
+        }
     }
 }

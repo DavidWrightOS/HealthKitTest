@@ -44,14 +44,7 @@ class MobilityChartDataViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let title = "Charts"
-//        let subtitle = "No data recorded. Please add some health data."
-//        let image = UIImage(systemName: "chart.bar.xaxis")
-//
-//        addSplashScreen(title: title, subtitle: subtitle, image: image)
-//
-//        self.title = title
-        
+        registerForhealthIntegrationIsEnabledChanges()
         setUpViews()
         
         data = mobilityContent.map { ($0, []) }
@@ -60,14 +53,11 @@ class MobilityChartDataViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Authorization
-        if !queries.isEmpty { return }
-        
-        HealthData.requestHealthDataAccessIfNeeded(dataTypeIdentifiers: mobilityContent) { success in
-            if success {
-                self.setUpBackgroundObservers()
-                self.loadData()
-            }
+        if AppSettings.shared.healthIntegrationIsEnabled {
+            setUpQueries()
+        } else {
+            print("Warning: Unable to configure query. The user has disabled Apple Health integration.")
+            reloadData()
         }
     }
     
@@ -78,6 +68,29 @@ class MobilityChartDataViewController: UIViewController {
     }
     
     // MARK: - Data
+    
+    func setUpQueries() {
+        guard queries.isEmpty else { return }
+        
+        HealthData.requestHealthDataAccessIfNeeded(dataTypeIdentifiers: mobilityContent) { success in
+            if success {
+                self.setUpBackgroundObservers()
+                self.loadData()
+            }
+        }
+    }
+    
+    func stopQueries() {
+        guard !queries.isEmpty else { return }
+        
+        print("Stopping HealthKit queries...")
+        
+        for query in queries {
+            HealthData.healthStore.stop(query)
+        }
+        
+        queries.removeAll()
+    }
     
     func loadData() {
         performQuery {
@@ -267,5 +280,21 @@ extension MobilityChartDataViewController: UICollectionViewDataSource {
         cell.updateChartView(with: content.dataTypeIdentifier, values: content.values)
         
         return cell
+    }
+}
+
+
+// MARK: - SettingsTracking
+
+extension MobilityChartDataViewController: SettingsTracking {
+    func healthIntegrationIsEnabledChanged() {
+        if AppSettings.shared.healthIntegrationIsEnabled {
+            setUpQueries()
+        } else {
+            stopQueries()
+            queries.removeAll()
+            data = mobilityContent.map { ($0, []) }
+            reloadData()
+        }
     }
 }
