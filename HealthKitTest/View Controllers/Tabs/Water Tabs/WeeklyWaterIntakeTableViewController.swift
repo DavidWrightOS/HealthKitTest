@@ -48,6 +48,8 @@ class WeeklyWaterIntakeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        registerForhealthIntegrationIsEnabledChanges()
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Data", style: .plain, target: self, action: #selector(didTapRightBarButtonItem))
         title = tabBarItem.title
@@ -59,7 +61,13 @@ class WeeklyWaterIntakeTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         navigationItem.title = dataTypeName
-        configureHKQuery()
+        
+        if AppSettings.shared.healthIntegrationIsEnabled {
+            configureHKQuery()
+        } else {
+            print("Warning: Unable to configure query. The user has disabled Apple Health integration.")
+            reloadData()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -301,6 +309,22 @@ extension WeeklyWaterIntakeTableViewController: HealthDataTableViewControllerDel
             } else {
                 NSLog("Error: Could not save new sample.", quantitySample)
             }
+        }
+    }
+}
+
+
+// MARK: - SettingsTracking
+
+extension WeeklyWaterIntakeTableViewController: SettingsTracking {
+    func healthIntegrationIsEnabledChanged() {
+        if AppSettings.shared.healthIntegrationIsEnabled {
+            configureHKQuery()
+        } else {
+            stopHKQuery()
+            query = nil
+            dataValues.removeAll()
+            reloadData()
         }
     }
 }

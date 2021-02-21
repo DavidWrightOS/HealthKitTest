@@ -35,13 +35,30 @@ class WaterIntakeChartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        registerForhealthIntegrationIsEnabledChanges()
         setupViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Authorization
+        if AppSettings.shared.healthIntegrationIsEnabled {
+            setUpQuery()
+        } else {
+            print("Warning: Unable to configure query. The user has disabled Apple Health integration.")
+            reloadData()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        stopQuery()
+    }
+    
+    // MARK: - Data
+    
+    func setUpQuery() {
         guard query == nil else { return }
         
         HealthData.requestHealthDataAccessIfNeeded(toShare: [quantityType], read: [quantityType]) { success in
@@ -52,7 +69,12 @@ class WaterIntakeChartViewController: UIViewController {
         }
     }
     
-    // MARK: - Data
+    func stopQuery() {
+        if let query = query {
+            print("Stopping HealthKit query...")
+            HealthData.healthStore.stop(query)
+        }
+    }
     
     func loadData() {
         performQuery {
@@ -270,6 +292,22 @@ extension WaterIntakeChartViewController {
             }
             
             return titles
+        }
+    }
+}
+
+
+// MARK: - SettingsTracking
+
+extension WaterIntakeChartViewController: SettingsTracking {
+    func healthIntegrationIsEnabledChanged() {
+        if AppSettings.shared.healthIntegrationIsEnabled {
+            setUpQuery()
+        } else {
+            stopQuery()
+            query = nil
+            values.removeAll()
+            reloadData()
         }
     }
 }
