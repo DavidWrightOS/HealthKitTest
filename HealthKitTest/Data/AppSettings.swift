@@ -7,6 +7,19 @@
 
 import Foundation
 
+@objc protocol SettingsTracking {
+    @objc func healthIntegrationIsEnabledChanged()
+}
+
+extension SettingsTracking {
+    func registerForhealthIntegrationIsEnabledChanges() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(healthIntegrationIsEnabledChanged),
+                                               name: .healthIntegrationIsEnabledChanged,
+                                               object: nil)
+    }
+}
+
 class AppSettings {
     static let shared = AppSettings()
     private init() {}
@@ -41,4 +54,9 @@ extension AppSettings {
     private func value<T>(for key: String) -> T? {
         userDefaults.value(forKey: key) as? T
     }
+}
+
+
+extension Notification.Name {
+    static let healthIntegrationIsEnabledChanged = Notification.Name("healthIntegrationIsEnabledChanged")
 }
