@@ -33,6 +33,7 @@ class AppSettings {
         set {
             guard newValue != healthIntegrationIsEnabled else { return }
             updateDefaults(for: healthIntegrationIsEnabledKey, value: newValue)
+            sendNotification(.healthIntegrationIsEnabledChanged)
         }
     }
     
@@ -53,6 +54,14 @@ extension AppSettings {
     
     private func value<T>(for key: String) -> T? {
         userDefaults.value(forKey: key) as? T
+    }
+    
+    private func sendNotification(_ notificationName: Notification.Name) {
+        let notification = Notification(name: notificationName)
+        NotificationQueue.default.enqueue(notification,
+                                          postingStyle: .asap,
+                                          coalesceMask: .onName,
+                                          forModes: [.common])
     }
 }
 
