@@ -48,7 +48,10 @@ class WeeklyWaterIntakeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        registerForhealthIntegrationIsEnabledChanges()
+        if !AppSettings.shared.healthIntegrationIsEnabled {
+            dataValues.removeAll()
+            reloadData()
+        }
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Data", style: .plain, target: self, action: #selector(didTapRightBarButtonItem))
@@ -63,25 +66,22 @@ class WeeklyWaterIntakeTableViewController: UITableViewController {
         navigationItem.title = dataTypeName
         
         if AppSettings.shared.healthIntegrationIsEnabled {
-            configureHKQuery()
+            requestAuthorizationAndQueryData()
         } else {
             print("Warning: Unable to configure query. The user has disabled Apple Health integration.")
-            reloadData()
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        stopHKQuery()
+        stopQuery()
     }
     
     // MARK: - HKStatisticsCollectionQuery
     
-    func configureHKQuery() {
+    func requestAuthorizationAndQueryData() {
         print("Setting up HealthKit query...")
-        
-        guard query == nil else { print("Warning: query already exists... cancelling query setup"); return }
         
         let dataTypeValues = Set([quantityType])
         
@@ -101,7 +101,7 @@ class WeeklyWaterIntakeTableViewController: UITableViewController {
         }
     }
     
-    func stopHKQuery() {
+    func stopQuery() {
         if let query = query {
             print("Stopping HealthKit query...")
             healthStore.stop(query)
@@ -222,6 +222,7 @@ extension WeeklyWaterIntakeTableViewController: HealthQueryDataSource {
         
         // Handle initial query results
         query.initialResultsHandler = { query, statisticsCollection, error in
+            print("query.initialResultsHandler()")
             if let statisticsCollection = statisticsCollection {
                 updateUIWithStatistics(statisticsCollection)
             }
@@ -229,6 +230,7 @@ extension WeeklyWaterIntakeTableViewController: HealthQueryDataSource {
         
         // Handle ongoing query results updates
         query.statisticsUpdateHandler = { query, statistics, statisticsCollection, error in
+            print("query.statisticsUpdateHandler()")
             if let statisticsCollection = statisticsCollection {
                 updateUIWithStatistics(statisticsCollection)
             }
@@ -309,22 +311,6 @@ extension WeeklyWaterIntakeTableViewController: HealthDataTableViewControllerDel
             } else {
                 NSLog("Error: Could not save new sample.", quantitySample)
             }
-        }
-    }
-}
-
-
-// MARK: - SettingsTracking
-
-extension WeeklyWaterIntakeTableViewController: SettingsTracking {
-    func healthIntegrationIsEnabledChanged() {
-        if AppSettings.shared.healthIntegrationIsEnabled {
-            configureHKQuery()
-        } else {
-            stopHKQuery()
-            query = nil
-            dataValues.removeAll()
-            reloadData()
         }
     }
 }
