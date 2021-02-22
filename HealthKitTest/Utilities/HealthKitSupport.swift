@@ -89,7 +89,7 @@ func getLastWeekStartDate(from date: Date = Date()) -> Date {
 
 func createLastWeekPredicate(from endDate: Date = Date()) -> NSPredicate {
     let startDate = getLastWeekStartDate(from: endDate)
-    return HKQuery.predicateForSamples(withStart: startDate, end: endDate)
+    return HKQuery.predicateForSamples(withStart: startDate, end: nil)
 }
 
 /// Return the most preferred `HKStatisticsOptions` for a data type identifier. Defaults to `.discreteAverage`.
