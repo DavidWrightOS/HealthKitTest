@@ -68,7 +68,6 @@ class WeeklyQuantitySampleTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        registerForhealthIntegrationIsEnabledChanges()
         setUpNavigationController()
         setUpViewController()
         setUpTableView()
@@ -80,9 +79,10 @@ class WeeklyQuantitySampleTableViewController: UITableViewController {
         updateNavigationItem()
         
         if AppSettings.shared.healthIntegrationIsEnabled {
-            configureHKQuery()
+            requestAuthorizationAndQueryData()
         } else {
             print("Warning: Unable to configure query. The user has disabled Apple Health integration.")
+            dataValues.removeAll()
             reloadData()
         }
     }
@@ -90,7 +90,7 @@ class WeeklyQuantitySampleTableViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        stopHKQuery()
+        stopQuery()
     }
     
     // MARK: - Lifecycle Helpers
@@ -113,11 +113,8 @@ class WeeklyQuantitySampleTableViewController: UITableViewController {
         navigationItem.title = getDataTypeName(for: dataTypeIdentifier)
     }
     
-    func configureHKQuery() {
-        
+    func requestAuthorizationAndQueryData() {
         print("Setting up HealthKit query...")
-        
-        guard query == nil else { print("Warning: query already exists... cancelling query setup"); return }
         
         let dataTypeValues = Set([quantityType])
         
@@ -137,7 +134,7 @@ class WeeklyQuantitySampleTableViewController: UITableViewController {
         }
     }
     
-    func stopHKQuery() {
+    func stopQuery() {
         if let query = query {
             print("Stopping HealthKit query...")
             healthStore.stop(query)
@@ -411,21 +408,5 @@ extension WeeklyQuantitySampleTableViewController: HealthDataTableViewController
         }
         
         return optionalSample
-    }
-}
-
-
-// MARK: - SettingsTracking
-
-extension WeeklyQuantitySampleTableViewController: SettingsTracking {
-    func healthIntegrationIsEnabledChanged() {
-        if AppSettings.shared.healthIntegrationIsEnabled {
-            configureHKQuery()
-        } else {
-            stopHKQuery()
-            query = nil
-            dataValues.removeAll()
-            reloadData()
-        }
     }
 }
