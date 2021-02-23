@@ -54,11 +54,17 @@ class MobilityChartDataViewController: UIViewController {
         super.viewWillAppear(animated)
         
         if AppSettings.shared.healthIntegrationIsEnabled {
-            setUpQueries()
+            requestAuthorizationAndQueryData()
         } else {
             print("Warning: Unable to configure query. The user has disabled Apple Health integration.")
             reloadData()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        stopQueries()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -69,9 +75,7 @@ class MobilityChartDataViewController: UIViewController {
     
     // MARK: - Data
     
-    func setUpQueries() {
-        guard queries.isEmpty else { return }
-        
+    func requestAuthorizationAndQueryData() {
         HealthData.requestHealthDataAccessIfNeeded(dataTypeIdentifiers: mobilityContent) { success in
             if success {
                 self.setUpBackgroundObservers()
@@ -106,6 +110,9 @@ class MobilityChartDataViewController: UIViewController {
     }
     
     func setUpBackgroundObservers() {
+        
+        queries.removeAll()
+        
         data.compactMap { getSampleType(for: $0.dataTypeIdentifier) }.forEach { (sampleType) in
             createAnchoredObjectQuery(for: sampleType)
         }
@@ -128,7 +135,6 @@ class MobilityChartDataViewController: UIViewController {
             // Handle error
             if let error = errorOrNil {
                 print("HKAnchoredObjectQuery initialResultsHandler with identifier \(sampleType.identifier) error: \(error.localizedDescription)")
-                
                 return
             }
             
@@ -146,7 +152,6 @@ class MobilityChartDataViewController: UIViewController {
             // Handle error
             if let error = errorOrNil {
                 print("HKAnchoredObjectQuery initialResultsHandler with identifier \(sampleType.identifier) error: \(error.localizedDescription)")
-                
                 return
             }
             
@@ -289,7 +294,7 @@ extension MobilityChartDataViewController: UICollectionViewDataSource {
 extension MobilityChartDataViewController: SettingsTracking {
     func healthIntegrationIsEnabledChanged() {
         if AppSettings.shared.healthIntegrationIsEnabled {
-            setUpQueries()
+            requestAuthorizationAndQueryData()
         } else {
             stopQueries()
             queries.removeAll()

@@ -74,7 +74,7 @@ func createAnchorDate() -> Date {
     let offset = (7 + (anchorComponents.weekday ?? 0) - 2) % 7
     
     anchorComponents.day! -= offset
-    anchorComponents.hour = 3
+//    anchorComponents.hour = 3
     
     let anchorDate = calendar.date(from: anchorComponents)!
     
